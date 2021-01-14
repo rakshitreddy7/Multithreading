@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 class Processor implements Runnable {
 
-    private int id;
+    private final int id;
 
     public Processor(int id) {
         this.id = id;
@@ -27,7 +27,7 @@ class Processor implements Runnable {
 }
 
 public class ThreadPool {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         /*
            1. Now, instead of using Thread.start(), we will use ExecutorService to make use of threads in a thread pool.
            2. As soon as one thread is done doing a task & is idle, it picks up an another task.
@@ -52,11 +52,7 @@ public class ThreadPool {
            Here we use awaitTermination() to wait for all the tasks to be completed.
         */
 
-        try {
-            executorService.awaitTermination(1, TimeUnit.DAYS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        executorService.awaitTermination(1, TimeUnit.DAYS);
 
         System.out.println("All things are completed...");
     }
